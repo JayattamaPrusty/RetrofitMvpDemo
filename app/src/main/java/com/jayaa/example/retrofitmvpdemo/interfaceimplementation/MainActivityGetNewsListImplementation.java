@@ -58,7 +58,7 @@ public class MainActivityGetNewsListImplementation implements MainActivityInterf
                             }
 
                         }
-                        myLocalDb.insertNewsRecords(row.getTitle(),row.getTitle(),row.getDescription(),row.getImageHref());
+                      //  myLocalDb.insertNewsRecords(row.getTitle(),row.getTitle(),row.getDescription(),row.getImageHref());
 
                     }
                     onFinishedListener.onFinished((ArrayList<NewsModel.Row>) response.body().getRows());
