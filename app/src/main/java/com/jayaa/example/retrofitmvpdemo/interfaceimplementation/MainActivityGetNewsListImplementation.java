@@ -47,8 +47,6 @@ public class MainActivityGetNewsListImplementation implements MainActivityInterf
                 public void onResponse(Call<NewsModel> call, Response<NewsModel> response) {
 
 
-
-
                     for(NewsModel.Row row:response.body().getRows()){
 
                         if(row.getTitle()!=null){
