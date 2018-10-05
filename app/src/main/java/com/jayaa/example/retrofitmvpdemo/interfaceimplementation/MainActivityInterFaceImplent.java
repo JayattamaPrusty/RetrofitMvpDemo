@@ -3,6 +3,7 @@ package com.jayaa.example.retrofitmvpdemo.interfaceimplementation;
 import com.jayaa.example.retrofitmvpdemo.model.NewsModel;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class MainActivityInterFaceImplent implements MainActivityInterfaceAll.PresentorRequest,MainActivityInterfaceAll.GetNewList.OnFinishedListener {
 
@@ -33,12 +34,31 @@ public class MainActivityInterFaceImplent implements MainActivityInterfaceAll.Pr
 
     @Override
     public void requestDataFromServer() {
+
+
         getNewList.getNewsArrayList(this);
     }
 
     @Override
     public void onFinished(ArrayList<NewsModel.Row> newslist) {
         if(mainActivityPresentorDisplay != null){
+
+            Iterator<NewsModel.Row> iter = newslist.iterator();
+
+            while (iter.hasNext()) {
+
+
+                NewsModel.Row row=iter.next();
+
+                if(row.getTitle()==null && row.getDescription()==null && row.getImageHref() == null){
+
+                    iter.remove();
+                    newslist.remove(row);
+                }
+
+
+            }
+
             mainActivityPresentorDisplay.setDataToRecyclerView(newslist);
             mainActivityPresentorDisplay.hideProgress();
         }

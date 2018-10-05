@@ -46,7 +46,8 @@
             <ImageView
                 android:id="@+id/iv_newsitem"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
+                android:scaleType="fitXY"
                 android:layout_weight="3"/>
 
            <!-- image right arrow-->

@@ -1,4 +1,4 @@
-package databaseHelper;
+package com.jayaa.example.retrofitmvpdemo.databaseHelper;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -94,5 +94,25 @@ public class MyLocalDb extends SQLiteOpenHelper {
         }
 
         return newslist;
+    }
+
+
+    public boolean isRowExist(String titlestr, String contentstr, String url){
+
+        boolean status=false;
+        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
+
+        String selectFirstQuery = "SELECT * FROM "+TABLE_NAME+" WHERE "+COLUMN_TITLE+" = ? ;"/*+" AND "+COLUMN_DESCRIPTION+" = ?"+" AND "+COLUMN_IMAGE+" = ? ;"*/;
+
+        String[] selectionargs=new String[]{titlestr};
+        Cursor cursor = sqLiteDatabase.rawQuery(selectFirstQuery,selectionargs);
+        int count = cursor.getCount();
+
+        if(count >= 1) {
+            status=true;
+        }
+        cursor.close();
+        sqLiteDatabase.close();
+        return status;
     }
 }

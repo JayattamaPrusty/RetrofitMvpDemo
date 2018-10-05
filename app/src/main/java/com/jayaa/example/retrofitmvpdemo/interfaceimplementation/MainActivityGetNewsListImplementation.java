@@ -10,7 +10,7 @@ import com.jayaa.example.retrofitmvpdemo.utils.Utility;
 
 import java.util.ArrayList;
 
-import databaseHelper.MyLocalDb;
+import com.jayaa.example.retrofitmvpdemo.databaseHelper.MyLocalDb;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,9 +46,18 @@ public class MainActivityGetNewsListImplementation implements MainActivityInterf
                 @Override
                 public void onResponse(Call<NewsModel> call, Response<NewsModel> response) {
 
+
+
+
                     for(NewsModel.Row row:response.body().getRows()){
 
+                        if(row.getTitle()!=null){
 
+                            if(!myLocalDb.isRowExist(row.getTitle(),row.getDescription(),row.getImageHref())){
+                                myLocalDb.insertNewsRecords(row.getTitle(),row.getTitle(),row.getDescription(),row.getImageHref());
+                            }
+
+                        }
                         myLocalDb.insertNewsRecords(row.getTitle(),row.getTitle(),row.getDescription(),row.getImageHref());
 
                     }

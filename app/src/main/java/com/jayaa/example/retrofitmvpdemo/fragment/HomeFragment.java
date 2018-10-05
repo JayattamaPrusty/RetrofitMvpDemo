@@ -14,12 +14,14 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.jayaa.example.retrofitmvpdemo.MyApplication;
 import com.jayaa.example.retrofitmvpdemo.R;
 import com.jayaa.example.retrofitmvpdemo.adapter.HomeAdapter;
 import com.jayaa.example.retrofitmvpdemo.interfaceimplementation.MainActivityGetNewsListImplementation;
 import com.jayaa.example.retrofitmvpdemo.interfaceimplementation.MainActivityInterFaceImplent;
 import com.jayaa.example.retrofitmvpdemo.interfaceimplementation.MainActivityInterfaceAll;
 import com.jayaa.example.retrofitmvpdemo.model.NewsModel;
+import com.jayaa.example.retrofitmvpdemo.utils.ConnectivityReceiver;
 import com.jayaa.example.retrofitmvpdemo.utils.RecyclerItemClickListener;
 
 import java.util.ArrayList;
@@ -30,13 +32,21 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment implements MainActivityInterfaceAll.MainActivityPresentorDisplay,SwipeRefreshLayout.OnRefreshListener {
+public class HomeFragment extends Fragment implements MainActivityInterfaceAll.MainActivityPresentorDisplay,SwipeRefreshLayout.OnRefreshListener ,ConnectivityReceiver.ConnectivityReceiverListener {
 
 
     View view;
     private ProgressBar progressBar;
     @BindView(R.id.rv_notice)
     RecyclerView rv_notice;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // register connection status listener
+       // MyApplication.getInstance().setConnectivityListener((ConnectivityReceiver.ConnectivityReceiverListener) getActivity());
+    }
 
     @BindView(R.id.srl_homecontainer)SwipeRefreshLayout swipeRefreshLayout;
 
@@ -62,6 +72,7 @@ public class HomeFragment extends Fragment implements MainActivityInterfaceAll.M
 
 
         presenter = new MainActivityInterFaceImplent(this, new MainActivityGetNewsListImplementation(getActivity()));
+
         presenter.requestDataFromServer();
         return view;
     }
@@ -109,6 +120,7 @@ public class HomeFragment extends Fragment implements MainActivityInterfaceAll.M
     @Override
     public void setDataToRecyclerView(ArrayList<NewsModel.Row> newslist) {
 
+
         rv_notice.setAdapter(new HomeAdapter(getActivity(),newslist,recyclerItemClickListener ));
     }
 
@@ -146,6 +158,13 @@ public class HomeFragment extends Fragment implements MainActivityInterfaceAll.M
         swipeRefreshLayout.setRefreshing(false);
 
         presenter.onRefreshButtonClick();
+
+    }
+
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+
+        Toast.makeText(getActivity(), ""+isConnected,Toast.LENGTH_SHORT).show();
 
     }
 }

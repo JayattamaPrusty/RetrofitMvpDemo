@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.jayaa.example.retrofitmvpdemo.R;
 import com.jayaa.example.retrofitmvpdemo.model.NewsModel;
 import com.jayaa.example.retrofitmvpdemo.utils.RecyclerItemClickListener;
@@ -38,9 +40,26 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
+
+
+
         holder.txtNoticeTitle.setText(dataList.get(position).getTitle());
         holder.txtNoticeBrief.setText(dataList.get(position).getDescription());
-        Glide.with(mcontext).load(dataList.get(position).getImageHref()).into(holder.iv_newsitem);
+
+        //Glide.with(mcontext).load(dataList.get(position).getImageHref()).into(holder.iv_newsitem);
+
+
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.nph);
+        requestOptions.error(R.drawable.nph);
+        //requestOptions.override(200,200);
+        requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
+        requestOptions.fitCenter();
+
+        Glide.with(mcontext)
+                .setDefaultRequestOptions(requestOptions)
+                .load(dataList.get(position).getImageHref())
+                .into(holder.iv_newsitem);
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -62,11 +81,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
 
         TextView txtNoticeTitle, txtNoticeBrief;
         ImageView iv_newsitem;
+
         public MyViewHolder(View itemView) {
             super(itemView);
-            txtNoticeTitle =  itemView.findViewById(R.id.txt_news_title);
-            txtNoticeBrief =  itemView.findViewById(R.id.txt_news_brief);
-            iv_newsitem=itemView.findViewById(R.id.iv_newsitem);
+            txtNoticeTitle = itemView.findViewById(R.id.txt_news_title);
+            txtNoticeBrief = itemView.findViewById(R.id.txt_news_brief);
+            iv_newsitem = itemView.findViewById(R.id.iv_newsitem);
         }
     }
 }

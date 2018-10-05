@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import com.jayaa.example.retrofitmvpdemo.MyApplication;
 import com.jayaa.example.retrofitmvpdemo.R;
 import com.jayaa.example.retrofitmvpdemo.fragment.HomeFragment;
 
@@ -12,6 +13,9 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
    @BindView(R.id.toolbar)Toolbar toolbar;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
