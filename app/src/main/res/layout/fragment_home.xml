@@ -21,5 +21,20 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
 
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rl_nodata"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/no_data_msg"/>
+    </RelativeLayout>
+
+
 
 </FrameLayout>

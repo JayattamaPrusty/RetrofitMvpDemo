@@ -6,6 +6,7 @@ import android.util.Log;
 import com.jayaa.example.retrofitmvpdemo.model.NewsModel;
 import com.jayaa.example.retrofitmvpdemo.network.RetrofitInstance;
 import com.jayaa.example.retrofitmvpdemo.network.RetrofitInterfaceMethodCall;
+import com.jayaa.example.retrofitmvpdemo.utils.ConnectivityReceiver;
 import com.jayaa.example.retrofitmvpdemo.utils.Utility;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class MainActivityGetNewsListImplementation implements MainActivityInterf
 
     private Context mcontext;
 
-    public MyLocalDb myLocalDb;
+    private MyLocalDb myLocalDb;
 
     public MainActivityGetNewsListImplementation(Context mcontext) {
         this.mcontext = mcontext;
@@ -31,15 +32,15 @@ public class MainActivityGetNewsListImplementation implements MainActivityInterf
     public void getNewsArrayList(final OnFinishedListener onFinishedListener) {
 
 
-        if(Utility.isInternetAvailable(mcontext)){
+        if(ConnectivityReceiver.isConnected()){
 
-            /** Create handle for the RetrofitInstance interface*/
+            /* Create handle for the RetrofitInstance interface*/
             RetrofitInterfaceMethodCall service = RetrofitInstance.getRetrofitInstance().create(RetrofitInterfaceMethodCall.class);
 
-            /** Call the method with parameter in the interface to get the notice data*/
+            /*Call the method with parameter in the interface to get the notice data*/
             Call<NewsModel> call = service.getNewsData();
 
-            /**Log the URL called*/
+            /*Log the URL called*/
             Log.wtf("URL Called", call.request().url() + "");
 
             call.enqueue(new Callback<NewsModel>() {
