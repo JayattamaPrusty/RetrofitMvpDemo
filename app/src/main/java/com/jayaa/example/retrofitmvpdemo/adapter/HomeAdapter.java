@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.jayaa.example.retrofitmvpdemo.R;
@@ -49,13 +50,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
         //Glide.with(mcontext).load(dataList.get(position).getImageHref()).into(holder.iv_newsitem);
 
 
-        RequestOptions requestOptions = new RequestOptions();
-        requestOptions.placeholder(R.drawable.nph);
-        requestOptions.error(R.drawable.nph);
-        //requestOptions.override(200,200);
-        requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
-        requestOptions.dontTransform();
-        requestOptions.fitCenter();
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(R.drawable.nph)
+                .error(R.drawable.nph)
+                .priority(Priority.HIGH)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .dontTransform()
+                .fitCenter();
 
         Glide.with(mcontext)
                 .setDefaultRequestOptions(requestOptions)
