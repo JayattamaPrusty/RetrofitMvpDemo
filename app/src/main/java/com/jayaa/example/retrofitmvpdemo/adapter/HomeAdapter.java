@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> {
 
-    Context mcontext;
+    private Context mcontext;
     private ArrayList<NewsModel.Row> dataList;
     private RecyclerItemClickListener recyclerItemClickListener;
 
@@ -54,11 +54,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
         requestOptions.error(R.drawable.nph);
         //requestOptions.override(200,200);
         requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
+        requestOptions.dontTransform();
         requestOptions.fitCenter();
 
         Glide.with(mcontext)
                 .setDefaultRequestOptions(requestOptions)
                 .load(dataList.get(position).getImageHref())
+                .apply(requestOptions)
                 .into(holder.iv_newsitem);
 
 
