@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 
+
+
+
 public class SharedPreferenceSingleton
 {
     public static String MY_PREF = "MyPref";
