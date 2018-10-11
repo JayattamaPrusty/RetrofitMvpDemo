@@ -26,6 +26,7 @@ import com.jayaa.example.retrofitmvpdemo.interfaceimplementation.MainActivityInt
 import com.jayaa.example.retrofitmvpdemo.model.NewsModel;
 import com.jayaa.example.retrofitmvpdemo.utils.ConnectivityReceiver;
 import com.jayaa.example.retrofitmvpdemo.utils.RecyclerItemClickListener;
+import com.jayaa.example.retrofitmvpdemo.utils.SharedPreferenceSingleton;
 
 import java.util.ArrayList;
 
@@ -151,6 +152,12 @@ public class HomeFragment extends Fragment implements MainActivityInterfaceAll.M
 
     @Override
     public void setDataToRecyclerView(ArrayList<NewsModel.Row> newslist) {
+
+        if(getActivity()!=null){
+
+            SharedPreferenceSingleton.getInstance().init(getActivity());
+            getActivity().setTitle(SharedPreferenceSingleton.getInstance().getStringPreference("title"));
+        }
 
 
         if(ConnectivityReceiver.isConnected()){

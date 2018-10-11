@@ -1,12 +1,14 @@
 package com.jayaa.example.retrofitmvpdemo.interfaceimplementation;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.jayaa.example.retrofitmvpdemo.model.NewsModel;
 import com.jayaa.example.retrofitmvpdemo.network.RetrofitInstance;
 import com.jayaa.example.retrofitmvpdemo.network.RetrofitInterfaceMethodCall;
 import com.jayaa.example.retrofitmvpdemo.utils.ConnectivityReceiver;
+import com.jayaa.example.retrofitmvpdemo.utils.SharedPreferenceSingleton;
 import com.jayaa.example.retrofitmvpdemo.utils.Utility;
 
 import java.util.ArrayList;
@@ -47,6 +49,9 @@ public class MainActivityGetNewsListImplementation implements MainActivityInterf
                 @Override
                 public void onResponse(Call<NewsModel> call, Response<NewsModel> response) {
 
+
+                    SharedPreferenceSingleton.getInstance().init(mcontext);
+                    SharedPreferenceSingleton.getInstance().writeStringPreference("title",response.body().getTitle());
 
                     for(NewsModel.Row row:response.body().getRows()){
 
